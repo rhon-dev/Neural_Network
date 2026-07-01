@@ -1,0 +1,8 @@
+# Core numerical computation (model implementation)
+numpy>=1.24
+
+# Visualization: training curves, confusion matrix, sample digits
+matplotlib>=3.7
+
+# Testing: unit tests and numerical gradient checks (development only)
+pytest>=7.4

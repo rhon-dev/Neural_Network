@@ -1,0 +1,15 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.DS_Store
+*.npy
+*.png
+# Dataset files are ignored, but keep the folder tracked
+data/*
+!data/.gitkeep
+.pytest_cache/
+*.egg
+dist/
+build/
