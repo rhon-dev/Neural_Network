@@ -1,4 +1,5 @@
 venv/
+.venv/
 __pycache__/
 *.pyc
 *.pyo
@@ -6,6 +7,7 @@ __pycache__/
 .DS_Store
 *.npy
 *.png
+!docs/*.png
 # Dataset files are ignored, but keep the folder tracked
 data/*
 !data/.gitkeep
