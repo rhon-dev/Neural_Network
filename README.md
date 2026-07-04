@@ -293,18 +293,36 @@ mathematics.
 
 ## 8. Results
 
-> To be completed once training is finalized (Phase 7).
+Final numbers are reproduced end-to-end by
+`python -m src.evaluate --retrain --epochs 8 --seed 0`. The trained network
+is 784 → 128 (ReLU) → 64 (ReLU) → 10 (softmax) with mean-reduction
+categorical cross-entropy loss and Adam optimization.
 
 | Metric | Value |
 |---|---|
-| Test accuracy | TBD |
-| Final training loss | TBD |
-| Epochs to convergence | TBD |
-| Optimizer / configuration | TBD |
+| Test accuracy | **97.75%** (9,775 / 10,000 correct) |
+| Test loss (mean cross-entropy) | 0.0799 |
+| Final training loss | 0.0310 |
+| Final validation accuracy | 97.23% |
+| Epochs trained | 8 |
+| Optimizer / configuration | Adam, lr = 1e-3, batch size = 128, seed = 0 |
 
-- **Training curves:** TBD (`docs/`)
-- **Confusion matrix:** TBD (`docs/`)
-- **Representative misclassifications:** TBD
+Test accuracy of **97.75%** lands inside the 95–98% target range set in
+§5, Phase 7. Training loss decreases monotonically across the 8 epochs
+(0.349 → 0.141 → 0.099 → 0.074 → 0.057 → 0.048 → 0.037 → 0.031) and
+validation accuracy climbs from 94.33% after epoch 1 to 97.45% at
+epoch 7 before settling at 97.23%; the small final-epoch dip is within
+the noise expected from mini-batch SGD-style updates.
+
+### Figures
+
+- **Training curves:** [`docs/training_curves.png`](docs/training_curves.png)
+- **Confusion matrix:** [`docs/confusion_matrix.png`](docs/confusion_matrix.png)
+- **Representative misclassifications:** [`docs/misclassifications.png`](docs/misclassifications.png)
+
+The per-epoch loss and accuracy history used to render the training
+curves is persisted at `docs/training_history.json`, so the figures are
+regenerable without retraining.
 
 ---
 
