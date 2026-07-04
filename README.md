@@ -324,6 +324,36 @@ The per-epoch loss and accuracy history used to render the training
 curves is persisted at `docs/training_history.json`, so the figures are
 regenerable without retraining.
 
+### CNN vs MLP Comparison (Phase 8, stretch)
+
+The Phase 8 stretch goal replaces the dense hidden stack with a small
+CNN built from a hand-written 2D convolutional layer (`src/conv.py`)
+and max-pooling layer (`src/pooling.py`), both gradient-checked below
+`1e-5` end-to-end (Phase 4 tolerance). Architecture:
+
+```
+Input [N, 1, 28, 28]
+  -> Conv2D(1, 8, 3, padding=1) + ReLU + MaxPool2D(2)   -> [N, 8, 14, 14]
+  -> Conv2D(8, 16, 3, padding=1) + ReLU + MaxPool2D(2)  -> [N, 16, 7, 7]
+  -> Flatten + Dense(784, 10) + Softmax                 -> [N, 10]
+```
+
+Same MNIST split, same Adam optimizer, same `lr = 1e-3`,
+`batch_size = 128`, `seed = 0`. Trained for 4 epochs
+(reproduced by `python -m src.train_cnn --epochs 4 --seed 0`):
+
+| Model | Params | Epochs | Test accuracy | Test loss |
+|---|---|---|---|---|
+| MLP (baseline) | ~109k | 8 | 97.75% | 0.0799 |
+| CNN (Phase 8) | ~9.1k | 4 | **98.03%** | 0.0597 |
+
+The CNN meets the "matches or exceeds MLP test accuracy" Phase 8 exit
+criterion (98.03% ≥ 97.75%) with roughly one-twelfth the parameter
+count and half the training epochs. Every convolutional parameter
+(kernels and biases) passes the Phase 1 numerical gradient check at
+tolerance `1e-5` — the highest per-parameter relative error observed
+across the CNN was `3.05e-10`, five orders below tolerance.
+
 ---
 
 ## 9. References
