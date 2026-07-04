@@ -6,11 +6,14 @@ __pycache__/
 *.egg-info/
 .DS_Store
 *.npy
+*.npz
 *.png
 !docs/*.png
 # Dataset files are ignored, but keep the folder tracked
 data/*
 !data/.gitkeep
+# Trained model checkpoints are runtime artifacts, not source.
+checkpoints/
 .pytest_cache/
 *.egg
 dist/
