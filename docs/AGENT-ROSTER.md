@@ -12,7 +12,7 @@ Each phase (README.md §5) has one owning subagent. Agent defs live in `.claude/
 | `optimizer-agent` | 5 | `src/optimizers.py`, `tests/test_optimizers.py` | backprop-agent |
 | `training-agent` | 6 | `src/train.py`, `tests/test_train.py` | data, forward, loss, backprop, optimizer agents |
 | `eval-agent` | 7 | `src/evaluate.py`, `docs/` figures, README §8 Results | training-agent checkpoint |
-| `conv-agent` (stretch, not yet defined) | 8 | conv/pooling layers | eval-agent baseline |
+| (no agent — implemented from main thread) | 8 (stretch) | `src/conv.py`, `src/pooling.py`, `src/cnn.py`, `src/train_cnn.py`, matching tests | eval-agent baseline |
 
 ## Rules every agent follows
 

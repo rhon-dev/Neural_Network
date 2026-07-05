@@ -12,8 +12,10 @@ Quick lookup per phase. Full narrative in README.md §5.
 | 5 — Optimizers | optimizer-agent | `src/optimizers.py` (SGD, mini-batch SGD, momentum, Adam) | each optimizer reduces loss on subset; Adam converges faster than plain SGD (shown side by side) | — |
 | 6 — Training | training-agent | `src/train.py` | training loss trends down per epoch; validation accuracy | **> 90%** |
 | 7 — Eval | eval-agent | `src/evaluate.py`, docs figures, README §8 | test accuracy in target range; loss/acc curves, confusion matrix, misclassifications saved to docs/ | **95–98%** test acc |
-| 8 — Conv (stretch) | conv-agent (TBD) | conv + pooling layers | conv grads pass gradcheck; CNN ≥ MLP baseline accuracy | rel error < 1e-5 |
+| 8 — Conv (stretch) | (no agent — main thread) | `src/conv.py`, `src/pooling.py`, `src/cnn.py`, `src/train_cnn.py` + tests | conv grads pass gradcheck; CNN ≥ MLP baseline accuracy | rel error < 1e-5 |
 
-Architecture fixed across all phases: `784 → Dense(128)+ReLU → Dense(64)+ReLU → Dense(10)+Softmax`, categorical cross-entropy loss.
+MLP architecture (Phases 0–7): `784 → Dense(128)+ReLU → Dense(64)+ReLU → Dense(10)+Softmax`, categorical cross-entropy loss.
+
+CNN architecture (Phase 8): `[1,28,28] → Conv(1,8,3,p=1)+ReLU+MaxPool(2) → Conv(8,16,3,p=1)+ReLU+MaxPool(2) → Flatten → Dense(784,10)+Softmax`, same cross-entropy loss.
 
 See [AGENT-ROSTER.md](AGENT-ROSTER.md) for ownership/dependency map, [QA-PUSH-GATE.md](QA-PUSH-GATE.md) for what must be true before pushing a phase.
